@@ -1,0 +1,27 @@
+{
+  "scope-gate-config": {
+    "enabled": true,
+    "PreConfiguration": [
+      {
+        "type": "command",
+        "command": "python ./scripts/pre_configuration_hook.py",
+        "timeout": 30
+      }
+    ]
+  },
+  "scope-gate-check": {
+    "enabled": true,
+    "PreToolUse": [
+      {
+        "matcher": "run_command|write_to_file|replace_file_content|multi_replace_file_content",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python ./scripts/scope_gate_check.py",
+            "timeout": 15
+          }
+        ]
+      }
+    ]
+  }
+}

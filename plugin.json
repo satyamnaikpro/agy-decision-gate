@@ -1,0 +1,7 @@
+{
+  "name": "agy-decision-gate",
+  "version": "0.1.0",
+  "description": "Antigravity plugin providing PreToolUse Scope Gate Checks using programmatic safety rules and TypeSafe decision models (tev1:0.8b / Jev) via Ollama.",
+  "author": "Satyam Naik",
+  "main": "scripts/scope_gate_check.py"
+}

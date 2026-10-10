@@ -1,0 +1,7 @@
+{
+  "TYPESAFE_BASE_URL": "http://localhost:11434",
+  "TYPESAFE_DEFAULT_MODEL": "tev1:0.8b",
+  "TYPESAFE_API_KEY": "ollama",
+  "GATE_CONFIRMATION_THRESHOLD": 0.65,
+  "GATE_STRICT_MODE": false
+}
