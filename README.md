@@ -57,7 +57,7 @@ Clone or copy the plugin into your repository's `.agents/plugins/` directory:
 ```bash
 # From the root of your project:
 mkdir -p .agents/plugins
-git clone https://github.com/satyamnaik/agy-decision-gate.git .agents/plugins/agy-decision-gate
+git clone https://github.com/satyamnaikpro/agy-decision-gate.git .agents/plugins/agy-decision-gate
 ```
 *Antigravity automatically detects and activates plugins inside `.agents/plugins/` upon opening the workspace.*
 
@@ -65,11 +65,11 @@ git clone https://github.com/satyamnaik/agy-decision-gate.git .agents/plugins/ag
 Install the plugin once to guard every repository and workspace on your computer:
 * **Windows (PowerShell)**:
   ```powershell
-  git clone https://github.com/satyamnaik/agy-decision-gate.git "$HOME\.gemini\config\plugins\agy-decision-gate"
+  git clone https://github.com/satyamnaikpro/agy-decision-gate.git "$HOME\.gemini\config\plugins\agy-decision-gate"
   ```
 * **macOS / Linux**:
   ```bash
-  git clone https://github.com/satyamnaik/agy-decision-gate.git ~/.gemini/config/plugins/agy-decision-gate
+  git clone https://github.com/satyamnaikpro/agy-decision-gate.git ~/.gemini/config/plugins/agy-decision-gate
   ```
 
 ### Option 3: Link via `plugins.json` (Without Moving Files)
