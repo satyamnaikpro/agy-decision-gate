@@ -3,5 +3,18 @@
   "version": "0.1.0",
   "description": "Antigravity plugin providing PreToolUse Scope Gate Checks using programmatic safety rules and TypeSafe decision models (tev1:0.8b / Jev) via Ollama.",
   "author": "Satyam Naik",
-  "main": "scripts/scope_gate_check.py"
+  "main": "scripts/scope_gate_check.py",
+  "scripts": {
+    "postinstall": "python ./scripts/pre_configuration_hook.py"
+  },
+  "commands": [
+    {
+      "name": "/gate-config",
+      "description": "Configure scope gate thresholds, Ollama connection, and decision models"
+    },
+    {
+      "name": "/scope-gate",
+      "description": "View operational status and audit rules for the decision gate"
+    }
+  ]
 }

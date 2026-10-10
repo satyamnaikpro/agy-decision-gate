@@ -1,6 +1,13 @@
 {
   "scope-gate-config": {
     "enabled": true,
+    "PostInstall": [
+      {
+        "type": "command",
+        "command": "python ./scripts/pre_configuration_hook.py",
+        "timeout": 30
+      }
+    ],
     "PreConfiguration": [
       {
         "type": "command",

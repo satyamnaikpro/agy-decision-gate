@@ -1,6 +1,6 @@
 # agy-decision-gate
 
-An Antigravity plugin providing **PreToolUse Scope Gate Checks** and **PreConfiguration lifecycle hooks** using deterministic programmatic safety rules and **TypeSafe System One decision models** (`tev1:0.8b` / `Jev`) via local **Ollama**. Automate CLI running and file editing tool calls, enabling fire-and-forget task execution similar to Claude Code's auto mode.
+An Antigravity plugin providing **PreToolUse Scope Gate Checks** and **PostInstall / PreConfiguration lifecycle hooks** using deterministic programmatic safety rules and **TypeSafe System One decision models** (`tev1:0.8b` / `Jev`) via local **Ollama**. Automate CLI running and file editing tool calls, enabling fire-and-forget task execution similar to Claude Code's auto mode.
 
 ---
 
@@ -8,15 +8,17 @@ An Antigravity plugin providing **PreToolUse Scope Gate Checks** and **PreConfig
 
 ```text
 agy-decision-gate/
-├── plugin.json                 # Antigravity Plugin manifest
-├── hooks.json                  # Lifecycle hooks (PreConfiguration + PreToolUse)
+├── plugin.json                 # Antigravity Plugin manifest (declares commands & postinstall)
+├── hooks.json                  # Lifecycle hooks (PostInstall + PreConfiguration + PreToolUse)
 ├── config.json                 # Configuration schema & defaults
 ├── requirements.txt            # Python dependencies
 ├── scripts/                    # Lifecycle hook implementations
 │   ├── pre_configuration_hook.py
 │   └── scope_gate_check.py
-├── skills/                     # Plugin skills
-│   └── scope-gate/
+├── skills/                     # Built-in Antigravity slash command skills
+│   ├── gate-config/            # /gate-config slash command
+│   │   └── SKILL.md
+│   └── scope-gate/             # /scope-gate slash command
 │       └── SKILL.md
 ├── experiment/                 # Validation & test suite
 │   ├── test_scope_gate.py      # Programmatic + live tev1 model gate tests
@@ -84,43 +86,43 @@ Keep the repository anywhere on disk and link it from any project by adding `.ag
 
 ---
 
-## Post-Installation Configuration
+## Automatic Setup (`PostInstall` Hook)
 
-After installing the plugin, you can customize thresholds and connection settings using any of the following methods:
+When the plugin is installed, its **`PostInstall`** hook runs automatically via `hooks.json` and `plugin.json`:
+1. Creates local configuration files (`config.json` and `.env`) with sensible defaults.
+2. Checks whether your local Ollama instance is reachable at `http://localhost:11434`.
+3. Verifies that the `tev1:0.8b` decision model is installed and ready.
 
-### Method 1: Interactive Setup Wizard (Fastest)
-Run the built-in configuration wizard in your terminal:
+---
+
+## Commands Inside Antigravity (`agy`)
+
+Once installed, the plugin exposes custom **slash commands** directly in the Antigravity prompt:
+
+### `/gate-config`
+Use this command in `agy` chat to configure or view settings conversationally:
+* Check connection status to Ollama.
+* Adjust the risk confirmation threshold (e.g., set to `0.80`).
+* Toggle strict mode (auto-deny instead of asking confirmation).
+
+### `/scope-gate`
+Use this command to audit the active decision gate rules, view execution statistics, and inspect test coverage.
+
+---
+
+## Command-Line Configuration (Alternative)
+
+You can also inspect or adjust settings directly from your terminal:
+
 ```bash
+# 1. Interactive wizard:
 python scripts/pre_configuration_hook.py --interactive
-```
-The wizard prompts for:
-* **Ollama Server URL** (default: `http://localhost:11434`)
-* **Decision Model** (default: `tev1:0.8b`)
-* **API Key / Token** (default: `ollama`)
-* **Confirmation Threshold** (default: `0.70` — risk probability above which the agent asks for confirmation)
-* **Strict Mode** (default: `false` — if `true`, automatically denies high-risk actions instead of asking)
 
-### Method 2: Command-Line Flags
-Inspect or update settings instantly via CLI:
-```bash
-# View active configuration:
+# 2. View active settings:
 python scripts/pre_configuration_hook.py --get
 
-# Adjust the human approval threshold:
-python scripts/pre_configuration_hook.py --set GATE_CONFIRMATION_THRESHOLD=0.80
-
-# Enable strict deny mode:
-python scripts/pre_configuration_hook.py --set GATE_STRICT_MODE=true
-```
-
-### Method 3: Edit `.env` or `config.json`
-Directly configure via `.env` in the plugin directory:
-```env
-TYPESAFE_BASE_URL=http://localhost:11434
-TYPESAFE_DEFAULT_MODEL=tev1:0.8b
-TYPESAFE_API_KEY=ollama
-GATE_CONFIRMATION_THRESHOLD=0.70
-GATE_STRICT_MODE=false
+# 3. Update specific variables via CLI flags:
+python scripts/pre_configuration_hook.py --set GATE_CONFIRMATION_THRESHOLD=0.75 GATE_STRICT_MODE=false
 ```
 
 ---
