@@ -22,6 +22,19 @@ import sys
 from pathlib import Path
 from typing import Any
 
+# Ensure project venv packages can be imported across Windows and Linux environments
+_PROJECT_ROOT = Path(__file__).resolve().parent.parent
+_VENV_PACKAGES_WIN = _PROJECT_ROOT / "venv" / "Lib" / "site-packages"
+if _VENV_PACKAGES_WIN.exists() and str(_VENV_PACKAGES_WIN) not in sys.path:
+    sys.path.insert(0, str(_VENV_PACKAGES_WIN))
+
+_VENV_LIB_UNIX = _PROJECT_ROOT / "venv" / "lib"
+if _VENV_LIB_UNIX.exists():
+    for site_pkg in _VENV_LIB_UNIX.glob("python*/site-packages"):
+        if site_pkg.is_dir() and str(site_pkg) not in sys.path:
+            sys.path.insert(0, str(site_pkg))
+
+
 _PROJECT_ROOT = Path(__file__).resolve().parent.parent
 _ENV_FILE = _PROJECT_ROOT / ".env"
 _CONFIG_JSON = _PROJECT_ROOT / "config.json"

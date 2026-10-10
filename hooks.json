@@ -4,14 +4,14 @@
     "PostInstall": [
       {
         "type": "command",
-        "command": "python ./scripts/pre_configuration_hook.py",
+        "command": "python ./scripts/pre_configuration_hook.py || python3 ./scripts/pre_configuration_hook.py",
         "timeout": 30
       }
     ],
     "PreConfiguration": [
       {
         "type": "command",
-        "command": "python ./scripts/pre_configuration_hook.py",
+        "command": "python ./scripts/pre_configuration_hook.py || python3 ./scripts/pre_configuration_hook.py",
         "timeout": 30
       }
     ]
@@ -24,7 +24,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python ./scripts/scope_gate_check.py",
+            "command": "python ./scripts/scope_gate_check.py || python3 ./scripts/scope_gate_check.py",
             "timeout": 15
           }
         ]

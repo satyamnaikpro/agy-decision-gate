@@ -5,7 +5,7 @@
   "author": "Satyam Naik",
   "main": "scripts/scope_gate_check.py",
   "scripts": {
-    "postinstall": "python ./scripts/pre_configuration_hook.py"
+    "postinstall": "python ./scripts/pre_configuration_hook.py || python3 ./scripts/pre_configuration_hook.py"
   },
   "commands": [
     {
